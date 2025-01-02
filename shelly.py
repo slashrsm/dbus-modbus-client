@@ -20,7 +20,7 @@ class Shelly_Meter(device.CustomName, device.EnergyMeter):
 
     # Shelly uses input registers!
     default_access = 'input'
-    
+
     def device_init(self):
         self.info_regs = [
             Reg_text(0, 6, '/Serial', little=True),
@@ -59,7 +59,7 @@ class Shelly_Pro_3EM(Shelly_Meter):
             # device. Our only option is to go truly Monophase and disregard the Phase B and C meters. *shrug*
             #
             nr_phases = 1
-            
+
             self.data_regs += [
                 Reg_shelly(32302, '/Ac/Energy/Forward', 1000, '%.1f kWh'),
                 Reg_shelly(32304, '/Ac/Energy/Reverse', 1000, '%.1f kWh'),
@@ -71,7 +71,7 @@ class Shelly_Pro_3EM(Shelly_Meter):
                 Reg_shelly(32312, '/Ac/L1/Energy/Reverse', 1000, '%.1f kWh'),
                 Reg_shelly(32007, '/Ac/L1/Power', 1, '%.1f W'),
             ]
-            
+
         else:
             # Triphase (default)
             #
@@ -82,23 +82,24 @@ class Shelly_Pro_3EM(Shelly_Meter):
                 Reg_shelly(31164, '/Ac/Energy/Reverse', 1000, '%.1f kWh'),
                 Reg_shelly(31013, '/Ac/Power', 1, '%.1f W'),
 
+                # HACK: Wiring in our case: A -> L1, C -> L2, B -> L3
                 Reg_shelly(31020, '/Ac/L1/Voltage', 1, '%.1f V'),
                 Reg_shelly(31022, '/Ac/L1/Current', 1, '%.1f A'),
                 Reg_shelly(31182, '/Ac/L1/Energy/Forward', 1000, '%.1f kWh'),
                 Reg_shelly(31184, '/Ac/L1/Energy/Reverse', 1000, '%.1f kWh'),
                 Reg_shelly(31024, '/Ac/L1/Power', 1, '%.1f W'),
 
-                Reg_shelly(31040, '/Ac/L2/Voltage', 1, '%.1f V'),
-                Reg_shelly(31042, '/Ac/L2/Current', 1, '%.1f A'),
-                Reg_shelly(31202, '/Ac/L2/Energy/Forward', 1000, '%.1f kWh'),
-                Reg_shelly(31204, '/Ac/L2/Energy/Reverse', 1000, '%.1f kWh'),
-                Reg_shelly(31044, '/Ac/L2/Power', 1, '%.1f W'),
+                Reg_shelly(31040, '/Ac/L3/Voltage', 1, '%.1f V'),
+                Reg_shelly(31042, '/Ac/L3/Current', 1, '%.1f A'),
+                Reg_shelly(31202, '/Ac/L3/Energy/Forward', 1000, '%.1f kWh'),
+                Reg_shelly(31204, '/Ac/L3/Energy/Reverse', 1000, '%.1f kWh'),
+                Reg_shelly(31044, '/Ac/L3/Power', 1, '%.1f W'),
 
-                Reg_shelly(31060, '/Ac/L3/Voltage', 1, '%.1f V'),
-                Reg_shelly(31062, '/Ac/L3/Current', 1, '%.1f A'),
-                Reg_shelly(31222, '/Ac/L3/Energy/Forward', 1000, '%.1f kWh'),
-                Reg_shelly(31224, '/Ac/L3/Energy/Reverse', 1000, '%.1f kWh'),
-                Reg_shelly(31064, '/Ac/L3/Power', 1, '%.1f W'),
+                Reg_shelly(31060, '/Ac/L2/Voltage', 1, '%.1f V'),
+                Reg_shelly(31062, '/Ac/L2/Current', 1, '%.1f A'),
+                Reg_shelly(31222, '/Ac/L2/Energy/Forward', 1000, '%.1f kWh'),
+                Reg_shelly(31224, '/Ac/L2/Energy/Reverse', 1000, '%.1f kWh'),
+                Reg_shelly(31064, '/Ac/L2/Power', 1, '%.1f W'),
             ]
 
     #
